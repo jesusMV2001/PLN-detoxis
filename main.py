@@ -1,10 +1,10 @@
 from data_loader import load_data
+from logisticRegresion import train_logistic_regression
 from predict import generate_predictions
+from randomForest import train_random_forest
 from text_preprocessing import clean_text, prepare_features
-from train_model import train_xgboost, evaluate_model
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import RandomOverSampler
-import pickle
 
 # Cargar los datos
 data = load_data('Data/Detoxis_train_kaggle.csv')
@@ -22,7 +22,7 @@ ros = RandomOverSampler(random_state=42)
 X_resampled, y_resampled = ros.fit_resample(X_train, y_train)
 
 # Entrenar y evaluar el modelo utilizando los datos sobremuestreados
-model = train_xgboost(X_resampled, y_resampled)
+model = train_logistic_regression(X_resampled, y_resampled)
 #evaluate_model(model, X_test, y_test)
 
 generate_predictions(model, 'Data/Detoxis_test_kaggle.csv', 'submission.csv')
