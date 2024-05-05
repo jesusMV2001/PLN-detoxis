@@ -1,7 +1,8 @@
 from data_loader import load_data
 from text_preprocessing import clean_text, prepare_features
-from train_model import train_logistic_regression, evaluate_model
+from train_model import train_random_forest, evaluate_model
 from sklearn.model_selection import train_test_split
+from imblearn.over_sampling import RandomOverSampler
 
 # Cargar los datos
 data = load_data('Data/Detoxis_train_kaggle.csv')
@@ -14,7 +15,10 @@ labels = data['label']
 # Dividir los datos
 X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
 
-# Entrenar y evaluar el modelo
-model = train_logistic_regression(X_train, y_train)
-evaluate_model(model, X_test, y_test)
+# Aplicar sobremuestreo a las clases minoritarias
+ros = RandomOverSampler(random_state=42)
+X_resampled, y_resampled = ros.fit_resample(X_train, y_train)
 
+# Entrenar y evaluar el modelo utilizando los datos sobremuestreados
+model = train_random_forest(X_resampled, y_resampled)
+evaluate_model(model, X_test, y_test)
