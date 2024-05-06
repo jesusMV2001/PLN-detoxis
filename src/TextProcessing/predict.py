@@ -1,7 +1,7 @@
 import pandas as pd
 import joblib
 
-from text_preprocessing import clean_text
+from src.TextProcessing.text_preprocessing import clean_text
 
 
 def generate_predictions(model_path, vectorizer_path, test_data_path, submission_path):

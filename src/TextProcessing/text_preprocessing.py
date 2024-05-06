@@ -49,5 +49,5 @@ def prepare_features(text_data, max_features=5000):
     stop_words = expand_stopwords()
     tfidf = TfidfVectorizer(max_features=max_features, stop_words=stop_words, ngram_range=(1, 3))
     features = tfidf.fit_transform(text_data).toarray()
-    joblib.dump(tfidf, 'Model/tfidf_vectorizer.pkl')  # Guardar el vectorizador para usarlo en predicciones
+    joblib.dump(tfidf, 'DataModels/tfidf_vectorizer.pkl')  # Guardar el vectorizador para usarlo en predicciones
     return features
