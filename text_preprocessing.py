@@ -1,9 +1,11 @@
 import re
 import nltk
-from nltk.corpus import stopwords
-from sklearn.feature_extraction.text import TfidfVectorizer
 import spacy
 import joblib
+
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 # Inicialización de spaCy para español
 nlp = spacy.load('es_core_news_sm')
@@ -23,8 +25,8 @@ def leer_stopwords(route):
 
 
 def expand_stopwords():
-    base_stopwords = stopwords.words('spanish')
-    custom_stopwords = leer_stopwords('Data/spanishStopWords.txt')  # Asegúrate de que esto devuelve una lista o un set
+    base_stopwords = stopwords.words('spanish')  # Obtener stopwords en español de NLTK
+    custom_stopwords = leer_stopwords('Data/spanishStopWords.txt')  # Leer stopwords personalizadas desde un archivo
     combined_stopwords = set(base_stopwords).union(custom_stopwords)  # Combina ambos conjuntos de stopwords
     return list(combined_stopwords)  # Convertir el conjunto resultante en una lista
 
@@ -38,8 +40,8 @@ def clean_text(text):
 
 
 def lemmatize_text(text):
-    doc = nlp(text)
-    return ' '.join([token.lemma_ for token in doc])
+    doc = nlp(text)  # Procesar el texto con spaCy
+    return ' '.join([token.lemma_ for token in doc])  # Unir las palabras lematizadas en una cadena
 
 
 def prepare_features(text_data, max_features=5000):
