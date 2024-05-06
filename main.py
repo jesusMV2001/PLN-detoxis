@@ -1,3 +1,5 @@
+import joblib
+
 from logisticRegresion import train_logistic_regression
 from data_loader import load_data
 from predict import generate_predictions
@@ -18,6 +20,7 @@ X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=
 
 # Entrenar y evaluar el modelo utilizando los datos y los pesos de las clases
 model = train_logistic_regression(X_train, y_train)
+joblib.dump(model, 'Model/model.pkl')
 evaluate_model(model, X_test, y_test)
 
-generate_predictions(model, 'Data/Detoxis_test_kaggle.csv', 'submission.csv')
+generate_predictions('Model/model.pkl', 'Model/tfidf_vectorizer.pkl', 'Data/Detoxis_test_kaggle.csv', 'submission.csv')
