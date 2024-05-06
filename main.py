@@ -1,5 +1,4 @@
 import joblib
-import numpy as np
 
 from XGBoost import train_xgboost, calcular_pesos_clases
 from logisticRegresion import train_logistic_regression
