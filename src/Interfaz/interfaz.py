@@ -1,3 +1,4 @@
+import threading
 import tkinter as tk
 from tkinter import ttk
 
@@ -27,11 +28,24 @@ def main(settings):
     for i, option in enumerate(sampling_options):
         tk.Radiobutton(window, text=option, variable=sampling_var, value=option.lower()).grid(column=0, row=i + 1)
 
+    # Crear etiqueta para mostrar el estado de la ejecución
+    status_label = tk.Label(window, text="")
+    status_label.grid(column=0, row=5)
+
     def run_model():
         settings['sobremuestreo'] = False
         settings['submuestreo'] = False
         settings[sampling_var.get()] = True
-        ejecucion.main(settings)
+        status_label.config(text="Ejecutando...")
+        thread = threading.Thread(target=ejecucion.main, args=(settings,))
+        thread.start()
+        window.after(1000, check_thread, thread)
+
+    def check_thread(thread):
+        if thread.is_alive():
+            window.after(1000, check_thread, thread)
+        else:
+            status_label.config(text="Ejecución completada")
 
     run_button = tk.Button(window, text="Ejecutar modelo", command=run_model)
     run_button.grid(column=0, row=4)
