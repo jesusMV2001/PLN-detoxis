@@ -1,3 +1,5 @@
 {
-    "interfaz":false
+    "interfaz":true,
+    "sobremuestreo": false,
+    "submuestreo": false
 }

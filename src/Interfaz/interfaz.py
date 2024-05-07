@@ -1,11 +1,17 @@
 import tkinter as tk
 from tkinter import ttk
 
+from src import ejecucion
 
-def main():
+
+def main(settings):
     # Crear ventana
     window = tk.Tk()
     window.title("Configuracion")
+    # Establecer tamaño de la ventana
+    window.geometry('300x200')
+    # Pantalla aparece en el centro
+    window.eval('tk::PlaceWindow . center')
 
     # Crear menú desplegable para seleccionar el tipo de modelo
     model_types = ['Modelo 1', 'Modelo 2', 'Modelo 3']
@@ -22,9 +28,10 @@ def main():
         tk.Radiobutton(window, text=option, variable=sampling_var, value=option.lower()).grid(column=0, row=i + 1)
 
     def run_model():
-        model_type = model_var.get()
-        sampling_type = sampling_var.get()
-        #run_model_func(model_type, sampling_type)
+        settings['sobremuestreo'] = False
+        settings['submuestreo'] = False
+        settings[sampling_var.get()] = True
+        ejecucion.main(settings)
 
     run_button = tk.Button(window, text="Ejecutar modelo", command=run_model)
     run_button.grid(column=0, row=4)
