@@ -2,6 +2,8 @@ import joblib
 
 from imblearn.over_sampling import RandomOverSampler
 from imblearn.under_sampling import RandomUnderSampler
+
+from src.Models.ensemble_model import train_ensemble_model
 from src.TextProcessing.data_loader import load_data
 from src.TextProcessing.predict import generate_predictions
 from src.Models.randomForest import train_random_forest
@@ -25,7 +27,7 @@ def main(settings):
     x_train, y_train = aplicar_muestreo(X_train, y_train, settings)
 
     # Entrenar y evaluar el modelo utilizando los datos y los pesos de las clases
-    model = train_random_forest(x_train, y_train)
+    model = train_random_forest(x_train, y_train, settings)
     # Guardar el modelo
     joblib.dump(model, 'DataModels/model.pkl')
     # Evaluar el modelo

@@ -5,6 +5,7 @@ import numpy as np
 
 
 def train_logistic_regression(x_train, y_train):
+    print("Entrenando modelo de regresión logística...")
     """ Entrena un modelo de regresión logística con ajustes óptimos para manejar desbalance de clases. """
     # Calcular los pesos para las clases
     classes = np.unique(y_train)

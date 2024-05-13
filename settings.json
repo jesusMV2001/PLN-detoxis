@@ -1,5 +1,6 @@
 {
-    "interfaz":true,
+    "interfaz":false,
     "sobremuestreo": false,
-    "submuestreo": false
+    "submuestreo": false,
+    "search_best_params": false
 }

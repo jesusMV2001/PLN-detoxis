@@ -2,15 +2,18 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 
 
-def train_random_forest(x_train, y_train):
+def train_random_forest(x_train, y_train, settings):
+    print("Entrenando modelo de bosque aleatorio...")
     # Busca los mejores parametros
-    # best_params = search_best_params(x_train, y_train)
-    # Entrena un modelo de bosque aleatorio con los mejores parámetros encontrados
-    # model = RandomForestClassifier(**best_params, random_state=42, class_weight="balanced")
-
-    # Para no hacer la busqueda de los mejores parametros
-    model = RandomForestClassifier(n_estimators=200, max_depth=10, min_samples_split=5,
-                                   min_samples_leaf=2, random_state=42, class_weight="balanced")
+    if settings['search_best_params']:
+        print("Buscando mejores parametros...")
+        best_params = search_best_params(x_train, y_train)
+        # Entrena un modelo de bosque aleatorio con los mejores parámetros encontrados
+        model = RandomForestClassifier(**best_params, random_state=42, class_weight="balanced")
+    else:
+        # Para no hacer la busqueda de los mejores parametros
+        model = RandomForestClassifier(n_estimators=300, max_depth=16, min_samples_split=5,
+                                       min_samples_leaf=2, random_state=42, class_weight="balanced")
 
     model.fit(x_train, y_train)
 
